@@ -5,7 +5,7 @@ This script uses the libraries PyMS and PyMassSpec to extract and align peaks fr
 PyMassSpec (https://github.com/PyMassSpec/PyMassSpec) is forked from the original PyMS Repository: https://github.com/ma-bio21/pyms. Originally by Andrew Isaac, Sean O'Callaghan and Vladimir Likić. The original publication can be found here: https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-13-115
 
 
-######################################
+######################################   
 #INSTALLATION
 
 Update microsoft C++ build tools
@@ -32,7 +32,7 @@ Launch spyder inside the virtual environment in navigator (or from windows menu 
 
 
 
-#######################################
+#######################################    
 #USING PyMassSpec
 
 Open script 'GCPyMassSpec multiprocess.py'
@@ -55,11 +55,12 @@ If there are too few peaks detected, reduce noise multiplier or minimum ions (pa
 If alignment is not great change Dw and Gw, higher Dw favors aligning peaks that are further away, higher Gw favors peak mixing of peaks (it is the penalty for gaps in the alignment list).
 
 
-#########################################
+#########################################    
 #Output
 
 The script delivers four output files in .csv format. 
 
-"..._aligned_areas.csv"   -Contains the TIC areas of each aligned peak for each chromatogram with the average retention time per peak. "..._aligned rt.csv"      -Contains the retention times for each chromatogram.
-"..._aligned_ions.csv"    -Contains the main ions used for separating each peak.
-"..._area_common_ion.csv" -Containes the area of one ion used for quantficiation (this ion is not necessarily the dominant ion).
+"..._aligned_areas.csv"   -Contains the TIC areas of each aligned peak for each chromatogram with the average retention time per peak.    
+"..._aligned rt.csv"      -Contains the retention times for each chromatogram.      
+"..._aligned_ions.csv"    -Contains the main ions used for separating each peak.    
+"..._area_common_ion.csv" -Containes the area of one ion used for quantficiation (this ion is not necessarily the dominant ion).    
