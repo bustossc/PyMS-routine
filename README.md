@@ -36,7 +36,7 @@ Launch spyder inside the virtual environment in navigator (or from windows menu 
 #USING PyMassSpec
 
 Open script 'GCPyMassSpec multiprocess.py'
-Save as script 'GCPyMassSpec multiprocess(name your experiment).py' (only after this you can modify the script without changing the original one)
+Save as script 'GCPyMassSpec multiprocess(name your experiment).py'
 
 Modify 'data_directory' (where your CDF files are located)
 Place file names in 'expr_codes' object (without '.CDF' extension)
