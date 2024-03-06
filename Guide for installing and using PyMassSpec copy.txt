@@ -32,7 +32,7 @@ Open script 'GCPyMassSpec multiprocess.py'
 Save as script 'GCPyMassSpec multiprocess(name your experiment).py' (only after this you can modify the script without changing the original one)
 
 Modify 'data_directory' (where your CDF files are located)
-Place file names in 'expr_codes' object (without '.CDF' Part)
+Place file names in 'expr_codes' object (without '.CDF' extension)
 
 
 Change parameters to desired values
@@ -43,8 +43,6 @@ Run script with 'detect_peaks(expr_codes)' and 'align(expr_codes)'
 To only align peaks from several already extracted samples
 Run script with 'detect_peaks(expr_codes)' off (# to comment), and activate 'align(expr_codes)'
 
-If there are too few peaks detected, reduce minimum ions or noise multiplier (parameters 'n' and 'noise_mult'). Increase those parameters if there are many unrelevant, small peaks. Changing ion percentage('r') has a similar effect, but 5% is normally OK.
+If there are too few peaks detected, reduce noise multiplier or minimum ions (parameters 'noise_mult' and n'). Increase those parameters if there are many unrelevant, small peaks. Changing ion percentage('r') has a similar effect, but 5% is normally OK.
 
 If alignment is not great change Dw and Gw, higher Dw favors aligning peaks that are further away, higher Gw favors peak mixing of peaks (it is the penalty for gaps in the alignment list).
-
-
