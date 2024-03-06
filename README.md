@@ -1,6 +1,6 @@
 # PyMS-routine
 
-This script uses the libraries PyMS and PyMassSpec to extract and align peaks from multiple GC-MS files in CDF format. Multiprocessing capabilities are added for faster peak extraction.
+This script uses the library PyMassSpec to extract and align peaks from multiple GC-MS files in CDF format. Multiprocessing capabilities are added for faster peak extraction.
 
 PyMassSpec (https://github.com/PyMassSpec/PyMassSpec) is forked from the original PyMS Repository: https://github.com/ma-bio21/pyms. Originally by Andrew Isaac, Sean O'Callaghan and Vladimir Likić. The original publication can be found here: https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-13-115
 
