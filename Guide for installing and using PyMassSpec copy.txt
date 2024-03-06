@@ -46,3 +46,13 @@ Run script with 'detect_peaks(expr_codes)' off (# to comment), and activate 'ali
 If there are too few peaks detected, reduce noise multiplier or minimum ions (parameters 'noise_mult' and n'). Increase those parameters if there are many unrelevant, small peaks. Changing ion percentage('r') has a similar effect, but 5% is normally OK.
 
 If alignment is not great change Dw and Gw, higher Dw favors aligning peaks that are further away, higher Gw favors peak mixing of peaks (it is the penalty for gaps in the alignment list).
+
+
+#########################################
+#Output
+
+The script delivers four output files in .csv format. 
+
+"..._aligned_areas.csv"   -Contains the TIC areas of each aligned peak for each chromatogram with the average retention time per peak. "..._aligned rt.csv"      -Contains the retention times for each chromatogram.
+"..._aligned_ions.csv"    -Contains the main ions used for separating each peak.
+"..._area_common_ion.csv" -Containes the area of one ion used for quantficiation (this ion is not necessarily the dominant ion).
