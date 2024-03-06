@@ -5,14 +5,15 @@ Created on Tue Nov 10 14:12:00 2020
 @author: bustosc
 """
 
-#Rutine for detecting and aligning peaks from GC-MS files in format CDF using PyMassSpec library based on PyMS.
+#Routine for detecting and aligning peaks from GC-MS files in format CDF with multiproccessing using PyMassSpec library based on PyMS.
 #Created by Carlos Bustos from scripts of PyMassSpec (Dominic Davis-Foster) and EasyGC (David Kainer).
+
+
 
 # In[1]:
 #Define parameters    
 
 import sys, os
-
 from pyms.BillerBiemann import BillerBiemann, num_ions_threshold, rel_threshold
 from pyms.Experiment import Experiment
 from pyms.GCMS.IO.ANDI import ANDI_reader
@@ -23,13 +24,13 @@ from pyms.TopHat import tophat
 
 from pyms.Noise.Analysis import window_analyzer
 
-#Indicate where your CDF files are located
-data_directory = "/Users/cbustos/Documents/GC-MS/Missing samples Kathrin/"
 
+#Indicate where your CDF files are located i.e. "C:/Users/.../" "/Users/../"
+data_directory = "/Users/"
 
-# Define the data files to process and folders
-expr_codes = ["49_220412"]
-    
+# Define the data files to process and folders, single or list (without extension)
+expr_codes = ["filename1", "filename2"]
+
 
 #Peak detection parameters
 window = 9;     # width of window over which local ion maxima are detected
@@ -39,7 +40,6 @@ n = 3;          # min number of ions with intensity above a threshold in a peak 
 noise_mult = 2  # peak ion intensity must be at least this multiple of noise level to be included in 'n'
 top_ions = 5    # Number of the most abundant ions to be included in 'aligned_ions' file
 
-
 #Align parameters
 Dw = 1.1           # Within state (local) alignment rt modulation [s] this is the tolerance of RT shift. Cannot be an integer!
 Gw = 0.35          # Within state local alignment gap penalty. Lower G is preferable as higher G favours peak-mixing
@@ -48,11 +48,9 @@ Gb = 0.30          # Between state (global) gap penalty
 
 comm=10          #Minimum number of samples with a given peak to include that peak in the list
 
-
 #Mass spectra range
 lo_mass = 40
 hi_mass = 340 
-
 
 #Use the same retention time range for all experiments
 lo_rt_limit = "3m"
@@ -60,33 +58,26 @@ hi_rt_limit = "10.75m"
 
 
 
-
 # In[2]:
 #Prefix for the folders and files of the output. No need to change this.
 
-#output_prefix = "s3n3r5t10n2d1.1g0.4"
 output_prefix = "w"+str(window)+"s"+str(scans)+"r"+str(r)+"i"+str(n)+"n"+str(noise_mult)
 file_prefix = "com"+str(comm)+output_prefix+"d"+str(Dw)+"g"+str(Gw)
 
 #Name of the folder where to store the output
 output_directory = data_directory + "PyMassSpec_out_" + output_prefix+"/"
-    
-    
-    
+
+
     
 # In[3]:
 #Functions for peak detection
 #Loop over the experiments and perform the peak detaction
 
-    
+
 #Detect peaks in one file
 def detect_one_code(code):
-#	print(f" -> Processing experiment '{expr_code}'")
-
-#	andi_file = data_directory + f"{expr_code}.cdf"
 
 	andi_file = data_directory + code + ".CDF"
-
 
 	data = ANDI_reader(andi_file)
 
@@ -102,7 +93,7 @@ def detect_one_code(code):
 		ic_bc = tophat(ic_smooth, struct="1.5m")
 		im.set_ic_at_index(ii, ic_bc)
  
-	# noise level calc
+	# noise level calculation
 	tic = data.tic
 	tic1 = savitzky_golay(tic)
 	tic2 = tophat(tic1, struct="1.5m")	
@@ -127,9 +118,9 @@ def detect_one_code(code):
 	# For peak alignment, all experiments must have the same mass range
 
 	for peak in peak_list:
+		#Crop mass range
 		#peak.crop_mass(40, 340)
-
-		#peak.null_mass(73)
+		#Remove mass
 		#peak.null_mass(147)
 
 		area = peak_sum_area(im, peak)
@@ -159,12 +150,12 @@ from multiprocessing import freeze_support
 import tqdm
 
 
-
 #Peak detection with multiprocessing
 def detect_peaksID(runs):
     if os.path.isdir(data_directory) == False:
         os.mkdir(data_directory)
-        
+	    
+    #Can change the number of files per batch of multiprocess    
     pool = mp.Pool(8)
 
 #    pool.map(detect_one_code, runs)
@@ -176,13 +167,9 @@ def detect_peaksID(runs):
 # In[4]:
 #Function for aligning peaks from different samples
     
-
 from pyms.Experiment import load_expr
 from pyms.DPA.PairwiseAlignment import PairwiseAlignment, align_with_tree
 from pyms.DPA.Alignment import exprl2alignment
-#from pyms.Peak.List.IO import store_peaks
-
-
 
 # do the alignment
 def align(runs):
@@ -204,13 +191,14 @@ def align(runs):
     A1.write_ion_areas_csv(expr_dir+file_prefix+'_aligned_ions.csv')
 
 
+
 # In[5]:
 #Run peak detection and alignment
     
 if __name__ == '__main__':
     freeze_support()
-#    detect_peaksID(expr_codes)
-#    align(expr_codes)
+    detect_peaksID(expr_codes)
+    align(expr_codes)
 
 
 
@@ -220,8 +208,8 @@ if __name__ == '__main__':
 import matplotlib.pyplot as plt
 from pyms.Display import *
 
-
-andi_file = data_directory + "49_220412"
+#Change filename
+andi_file = data_directory + "filename"
 data = ANDI_reader(andi_file)
 data.info()
 
@@ -237,10 +225,6 @@ print("Noise level in TIC: ",noise_level)
 
 fig, ax = plt.subplots(1, 1, figsize=(10,5))  
 
-plot_ic(ax, tic1, label  = 'TIC for L4_623')
- 
-plot_ic(ax, tic2, label  = 'TIC for L4_623')
+plot_ic(ax, tic1, label  = 'TIC for filename')
 
-print('\007')
-
-    
+print('\007')    
