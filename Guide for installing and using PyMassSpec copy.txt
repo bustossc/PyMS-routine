@@ -55,4 +55,4 @@ The script delivers four output files in .csv format.
 
 "..._aligned_areas.csv"   -Contains the TIC areas of each aligned peak for each chromatogram with the average retention time per peak. "..._aligned rt.csv"      -Contains the retention times for each chromatogram.
 "..._aligned_ions.csv"    -Contains the main ions used for separating each peak.
-"..._area_common_ion.csv" -Containes the area of one ion used for quantficiation (this ion is not necessarily the dominant ion).
+"..._area_common_ion.csv" -Contains the area of one ion used for quantficiation (this ion is not necessarily the dominant ion).
