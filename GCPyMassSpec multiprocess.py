@@ -11,7 +11,7 @@ Created on Tue Nov 10 14:12:00 2020
 
 
 # In[1]:
-#Define parameters    
+#Define parameters (Input your data here)    
 
 import sys, os
 from pyms.BillerBiemann import BillerBiemann, num_ions_threshold, rel_threshold
@@ -59,7 +59,7 @@ hi_rt_limit = "10.75m"
 
 
 # In[2]:
-#Prefix for the folders and files of the output. No need to change this.
+#Prefixes for the folders and files of the output. No need to change this.
 
 output_prefix = "w"+str(window)+"s"+str(scans)+"r"+str(r)+"i"+str(n)+"n"+str(noise_mult)
 file_prefix = "com"+str(comm)+output_prefix+"d"+str(Dw)+"g"+str(Gw)
@@ -149,7 +149,6 @@ import multiprocessing as mp
 from multiprocessing import freeze_support    
 import tqdm
 
-
 #Peak detection with multiprocessing
 def detect_peaksID(runs):
     if os.path.isdir(data_directory) == False:
@@ -158,7 +157,6 @@ def detect_peaksID(runs):
     #Can change the number of files per batch of multiprocess    
     pool = mp.Pool(8)
 
-#    pool.map(detect_one_code, runs)
     for _ in tqdm.tqdm(pool.imap(detect_one_code, runs), total=len(runs)):
         pass
     
@@ -166,6 +164,7 @@ def detect_peaksID(runs):
 
 # In[4]:
 #Function for aligning peaks from different samples
+##Do not change this
     
 from pyms.Experiment import load_expr
 from pyms.DPA.PairwiseAlignment import PairwiseAlignment, align_with_tree
@@ -203,7 +202,7 @@ if __name__ == '__main__':
 
 
 # In[6]:
-#run for plot a GC file
+#run for plotting a GC file
 
 import matplotlib.pyplot as plt
 from pyms.Display import *
