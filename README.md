@@ -13,7 +13,7 @@ https://visualstudio.microsoft.com/visual-cpp-build-tools/
 
 Install Anaconda for Python3
 
-Install spyder in a virtual environment
+Install spyder in a virtual environment  
 -go to Anaconda navigator an create a new environment (don't use root environment), installing spyder
 
 Activate virtual environment (in Anaconda console)
